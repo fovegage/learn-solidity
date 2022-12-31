@@ -1,8 +1,13 @@
 ## DAPP 开发
 
 ```
+# https://pan.baidu.com/s/175HzCR8xCR8gbwVhORx6BA?pwd=dk92 
+# 遵循 ERC20标准   转帐 支付 获取余额 实现接口
 # 使用 react 开发 dapp   https://trufflesuite.com/boxes/react/
 truffle unbox react
+
+# 币和代币的区别
+https://www.ledger.com/zh-hans/academy/%E5%B8%81%E5%92%8C%E4%BB%A3%E5%B8%81%E7%9A%84%E5%8C%BA%E5%88%AB
 
 truffle compile 后会在 client/src/contracts  生成api
 使用contract address 在测试网络进行 abi 调用

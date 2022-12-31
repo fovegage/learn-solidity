@@ -24,6 +24,25 @@
 
 ```
 
+## 区块链
+
+```
+# matic 作为以太坊二层网络是兼容以太坊的  matic 和 eth 可以是一个地址 通过货币符号判定转入
+# 但是像莱特币这种是一种新币 它和以太坊不兼容
+eth: https://goerli.etherscan.io
+cfx: https://www.confluxscan.io
+matic: https://polygonscan.com
+```
+
+## 网站
+
+```
+币安交易所：https://www.binance.com
+ntf交易：https://opensea.io/collection
+预言机：https://docs.chain.link/vrf/v2/introduction
+合约标准库：https://docs.openzeppelin.com/contracts/4.x/tokens
+```
+
 ## 标准
 
 ```
