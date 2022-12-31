@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>metamask基础交互</title>
+
+    <script src="https://cdn.staticfile.org/ethers/5.7.2/ethers.umd.min.js" type="application/javascript"></script>
+    <script src="contract.js" type="application/javascript"></script>
+
+</head>
+<body>
+<div>
+    <button onclick="connectWallet()" id="account">connect wallet</button>
+    <button onclick="runContract()" id="contract">run contract</button>
+</div>
+<script>
+    async function connectWallet() {
+        if (typeof window.ethereum === "undefined") {
+            alert("please install wallet")
+            return;
+        }
+        // open metamask
+        let account = await window.ethereum.request({method: "eth_requestAccounts"});
+        if (account.length > 0) {
+            console.log(account)
+            document.getElementById("account").innerText = "Account:" + account[0];
+        }
+    }
+
+    async function runContract() {
+        if (typeof window.ethereum === "undefined") {
+            alert("please install wallet")
+            return;
+        }
+        // provider  与 以太坊进行交互
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        let contract = new ethers.Contract(ADDRESS, ABI, provider);
+        let result = await contract.getName();
+        document.getElementById("contract").innerText = "Run Result:" + result;
+    }
+
+</script>
+</body>
+</html>
