@@ -8,6 +8,8 @@ contract GameItem is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    // 1、代笔名称  eg. RMB
+    // 2、代币符号  eg. ¥
     constructor() ERC721("GameItem", "ITM") {}
 
     function awardItem(address player, string memory tokenURI)

@@ -18,6 +18,7 @@ TokenURI: spu api 链接
 在这两个情况的前提下，才会触发opensea调用对应的公链进行 nft的铸造  （mint 创建一个新的从0地址转移到购买者或者操作者）
 当您将项目转移到另一个账户时 当有人向您购买项目时 
 opensea铸造免费  出售的时候需要进行签名   nft在二级市场流通 每次都会产生交易费 可以在此赚钱
+点击铸造，player 和 tokenuri 传入 ，opensea会收到事件  进行erc721的读取
 
 # opensea支持的代币
 https://support.opensea.io/hc/zh-tw/articles/4404027708051-%E5%93%AA%E4%BA%9B%E5%8D%80%E5%A1%8A%E9%8F%88%E8%88%87-OpenSea-%E7%9B%B8%E5%AE%B9-
@@ -49,7 +50,52 @@ https://docs.opensea.io/docs/metadata-standards
 
 # ERC721
 只需要实现了 ERC721 标准便可以进行上传铸造
+
+# 合约地址
+
 ```
+
+### 可升级合约
+
+```
+# 由于区块链代码一经部署不可修改，那么我没应该如何升级自己的代码呢？
+https://hicoldcat.com/posts/blockchain/what-are-upgradable-smart-contracts-full-guide/
+https://learnblockchain.cn/article/5167
+```
+
+### 测试网络
+
+```
+https://testnets.opensea.io/account?tab=collected
+# 使用测试网络完成nft的铸造  合约的部署需要花费gas
+https://testnets.opensea.io/account
+
+# 测试用json 
+https://github.com/kasoqian/HassanNFT-metadata/
+https://raw.githubusercontent.com/kasoqian/HassanNFT-metadata/main/metadata/json/1.json
+
+# 以太坊测试账户
+https://goerli.etherscan.io/address/0x17A48395806D4e130e1b131672C610add12c1680
+
+# 点击部署后会生成测试网络的以太坊状态  部署生成
+https://goerli.etherscan.io/tx/0xe45b21c01143bee82d33a649cdedafde9a276c886dd759748aaedf615a46863b
+
+# 铸造生成
+https://goerli.etherscan.io/tx/0xdb059222c081de6c282950742d53445108a0663083e41b7baa0b62b73fd166cc
+
+# opensea生成
+https://testnets.opensea.io/assets/goerli/0x1eacb7ad779d3e558824059533f32a14316b801f/0
+
+https://goerli.etherscan.io/address/0x1eacb7ad779d3e558824059533f32a14316b801f
+代币合约地址：0x1eACb7AD779d3e558824059533F32A14316B801F
+
+# 方法作用
+awardItem: 铸造nft
+
+```
+
+![](doc/img.png)
+![](doc/img_1.png)
 
 ```solidity
 contract MyCollectible is ERC721 {
@@ -107,6 +153,77 @@ contract MyCollectible is ERC721 {
     }
   ]
 }
+```
+
+### 接口
+
+- https://zhuanlan.zhihu.com/p/412101517
+
+```solidity
+interface ERC721 /* is ERC165 */ {
+
+    // 转帐
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
+    event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
+
+    event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
+
+    // 获取一个地址下有多少个nft
+    function balanceOf(address _owner) external view returns (uint256);
+
+    // 根据token返回拥有者的账户地址
+    function ownerOf(uint256 _tokenId) external view returns (address);
+
+    // nft转帐  向0地址转移会报错  二级市场
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId, bytes data) external payable;
+
+    // nft转帐  向0地址转移会报错  二级市场
+    function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
+
+    // 可以向0地址转帐  但0地址是黑洞  一旦转入无法取回
+    function transferFrom(address _from, address _to, uint256 _tokenId) external payable;
+
+    // 以下为账户代管理
+    function approve(address _approved, uint256 _tokenId) external payable;
+
+    function setApprovalForAll(address _operator, bool _approved) external;
+
+    function getApproved(uint256 _tokenId) external view returns (address);
+
+    function isApprovedForAll(address _owner, address _operator) external view returns (bool);
+}
+
+interface ERC165 {
+    function supportsInterface(bytes4 interfaceID) external view returns (bool);
+}
+
+interface ERC721TokenReceiver {
+
+    function onERC721Received(address _operator, address _from, uint256 _tokenId, bytes _data) external returns (bytes4);
+}
+
+// opensea 类似网站调用该接口展示信息
+interface ERC721Metadata /* is ERC721 */ {
+
+    function name() external view returns (string _name);
+
+    function symbol() external view returns (string _symbol);
+
+    function tokenURI(uint256 _tokenId) external view returns (string);
+}
+
+// 发行信息
+interface ERC721Enumerable /* is ERC721 */ {
+
+    function totalSupply() external view returns (uint256);
+
+    function tokenByIndex(uint256 _index) external view returns (uint256);
+
+    function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256);
+}
+
+
 ```
 
 ### nft 术语
