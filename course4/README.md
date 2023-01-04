@@ -63,6 +63,13 @@ https://hicoldcat.com/posts/blockchain/what-are-upgradable-smart-contracts-full-
 https://learnblockchain.cn/article/5167
 ```
 
+### web3.js调用
+
+```
+# 调用 合约地址可以获取到对应的信息  移动端如何进行交互（opensea）
+
+```
+
 ### 测试网络
 
 ```
@@ -262,6 +269,19 @@ Airdrop（空投）：有些 NFT 為了行銷目的或是獎勵用戶，會使�
 Roadmap：「路線圖」的意思，可以讓用戶知道該 NFT 的未來發展與走向，也能透過 Roadmap 來確認項目是否可行，像是代幣的白皮書。
 ```
 
+## 问题
+
+```
+注意 codeup 私有源和 阿里云公开yum源
+//查看源
+npm config get registry
+//更换源
+npm config set registry https://registry.npmjs.org
+//淘宝源
+npm config set registry https://registry.npm.taobao.org
+
+```
+
 ### hardhat
 
 ```
@@ -278,10 +298,28 @@ Try running some of the following tasks:
 
 ```
 npx hardhat help
+# 单元测试
 npx hardhat test
 REPORT_GAS=true npx hardhat test
+# 启动测试节点 http://127.0.0.1:8545/
 npx hardhat node
+# 部署合约  在自带的evm虚拟机内部测试署
 npx hardhat run scripts/deploy.ts
 # 编译合约  会生成 cache和artifacts 两个文件
 npx hardhat compile
+# 部署到测试网络
+npx hardhat run scripts/deploy.ts --network test
+npx hardhat verify --list-networks
+```
+
+## 运行文档
+
+```
+# 区块链博客
+https://mirror.xyz/0x888888902106DA57dFC0E44712eD899f394c07F5/VIZpWwvh-Xes3qp-emglq0HAbH6DQEsRvogq3iO-pSs
+
+# etherscan 需要申请key
+cnpm install --save-dev @nomiclabs/hardhat-etherscan
+https://hardhat.org/hardhat-runner/plugins/nomiclabs-hardhat-etherscan#adding-support-for-other-networks
+
 ```
