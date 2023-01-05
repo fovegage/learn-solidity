@@ -9,6 +9,7 @@
 <body>
 <button onclick="connectWallet()" id="account">connect wallet</button>
 <button onclick="getTokenURI()" id="token">get Token URI</button>
+<button onclick="queryNFT()">query nft</button>
 </body>
 <script>
     async function connectWallet() {
@@ -35,6 +36,19 @@
         let result = await contract.tokenURI("0");
         console.log(result)
         document.getElementById("token").innerText = "TokenURI:" + result;
+    }
+
+    async function queryNFT() {
+        if (typeof window.ethereum === "undefined") {
+            alert("please install wallet")
+            return;
+        }
+        // provider  与 以太坊进行交互
+        let provider = new ethers.providers.Web3Provider(window.ethereum);
+        let contract = new ethers.Contract(ADDRESS, ABI, provider);
+        let result = await contract.balanceOf("0x17A48395806D4e130e1b131672C610add12c1680");
+        // let result = await  contract.tokenOfOwnerByIndex();
+        console.log(result)
     }
 </script>
 </html>

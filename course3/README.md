@@ -58,23 +58,45 @@ https://www.confluxscan.io/
 
 ## erc20
 
+- https://www.jianshu.com/p/82103d269111
+- USDT 为例, 我们可以通过钱包软件（小狐狸扩展钱包或TokenPocket钱包）给别人发送一定数量的USDT,
+- 这是因为USDT 实现了 ERC20标准中的transfer方法，给别人发送 USDT 本质是在与 USDT 合约交互，
+- 调用了 USDT合约中的transfer方法
+- 主要点在于这个过程是等价的 因此是同质性货币，而nft由于每个都不同，具有稀缺性，每个通证对不同的用户都有不同的价值
+
 ```solidity
 interface IERC20 {
+    // 代币名称
+    function name() public view returns (string);
+
+    // 代币符号
+    function symbol() public view returns (string);
+
+    // 代币精度 单位1000
+    function decimals() public view returns (uint8);
+
+    // 总发行量
     function totalSupply() external view returns (uint256);
 
+    // 查询账户下的代币余额
     function balanceOf(address who) external view returns (uint256);
 
+    // 授权额度查询
     function allowance(address owner, address spender)
     external view returns (uint256);
 
+    // 从自己的账户进行转帐
     function transfer(address to, uint256 value) external returns (bool);
 
+    // 授权可以转账我某某数量个此代币
     function approve(address spender, uint256 value)
     external returns (bool);
 
+    // 划转他人账户ERC20代币 在approve授权情况下，比如小狐狸钱包可以进行代转帐
     function transferFrom(address from, address to, uint256 value)
     external returns (bool);
 
+    // 转帐事件
     event Transfer(
         address indexed from,
         address indexed to,

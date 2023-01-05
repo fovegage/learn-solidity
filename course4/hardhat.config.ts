@@ -12,6 +12,7 @@ const config: HardhatUserConfig = {
             accounts: ["8ef286e8a967af549451154c22cb002725ddec649ca376c4883417903f9854c8"],
         },
     },
+    // scan key
     etherscan: {
         apiKey: {
             test: "",

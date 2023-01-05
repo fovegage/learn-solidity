@@ -93,8 +93,8 @@ https://goerli.etherscan.io/tx/0xdb059222c081de6c282950742d53445108a0663083e41b7
 # opensea生成
 https://testnets.opensea.io/assets/goerli/0x1eacb7ad779d3e558824059533f32a14316b801f/0
 
-https://goerli.etherscan.io/address/0x1eacb7ad779d3e558824059533f32a14316b801f
-代币合约地址：0x1eACb7AD779d3e558824059533F32A14316B801F
+外部账户地址：https://goerli.etherscan.io/address/0x17A48395806D4e130e1b131672C610add12c1680
+代币合约地址：https://goerli.etherscan.io/address/0x1eACb7AD779d3e558824059533F32A14316B801F
 
 # 方法作用
 awardItem: 铸造nft
@@ -165,18 +165,24 @@ contract MyCollectible is ERC721 {
 ### 接口
 
 - https://zhuanlan.zhihu.com/p/412101517
+- https://blog.csdn.net/lj900911/article/details/83244561
+- ERC20是可替代型通证，ERC721则是不可替代型通证。这意味着每个通证是完全不同的，
+- 并且每个通证对不同的用户都有不同的价值。 这种类型通证最具有代表性的应用就是CryptoKittes，
+- 每一个数字猫都是独立的，因为每只猫各有千秋，而且由于不同辈分的稀缺性不同，市场价格也差异巨大。
 
 ```solidity
 interface ERC721 /* is ERC165 */ {
 
-    // 转帐
+    // 转帐事件
     event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
 
+    // approve成功后需触发 Approval 事件
     event Approval(address indexed _owner, address indexed _approved, uint256 indexed _tokenId);
 
+    // 触发事件
     event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
 
-    // 获取一个地址下有多少个nft
+    // 获取owner持有的nft数量
     function balanceOf(address _owner) external view returns (uint256);
 
     // 根据token返回拥有者的账户地址
@@ -191,13 +197,16 @@ interface ERC721 /* is ERC165 */ {
     // 可以向0地址转帐  但0地址是黑洞  一旦转入无法取回
     function transferFrom(address _from, address _to, uint256 _tokenId) external payable;
 
-    // 以下为账户代管理
+    // 授权地址拥有 该 tokenID 的所有权
     function approve(address _approved, uint256 _tokenId) external payable;
 
+    // 授权
     function setApprovalForAll(address _operator, bool _approved) external;
 
+    // 查询授权  该nft tokenID 授权给了谁
     function getApproved(uint256 _tokenId) external view returns (address);
 
+    // 查询授权
     function isApprovedForAll(address _owner, address _operator) external view returns (bool);
 }
 
@@ -205,28 +214,35 @@ interface ERC165 {
     function supportsInterface(bytes4 interfaceID) external view returns (bool);
 }
 
+// 转让NFT的合约应该调用其onERC721Received方法
 interface ERC721TokenReceiver {
 
     function onERC721Received(address _operator, address _from, uint256 _tokenId, bytes _data) external returns (bytes4);
 }
 
-// opensea 类似网站调用该接口展示信息
+// 元信息（opensea等类似网站调用该接口展示信息）
 interface ERC721Metadata /* is ERC721 */ {
 
+    // 代币名称
     function name() external view returns (string _name);
 
+    // 代币符号
     function symbol() external view returns (string _symbol);
 
+    // 代币 spu id
     function tokenURI(uint256 _tokenId) external view returns (string);
 }
 
 // 发行信息
 interface ERC721Enumerable /* is ERC721 */ {
 
+    //  总发行量
     function totalSupply() external view returns (uint256);
 
+    // 根据索引查询 tokenID
     function tokenByIndex(uint256 _index) external view returns (uint256);
 
+    // 返回该地址下 nft 的索引
     function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256);
 }
 
@@ -309,6 +325,7 @@ npx hardhat run scripts/deploy.ts
 npx hardhat compile
 # 部署到测试网络
 npx hardhat run scripts/deploy.ts --network test
+# 验证部署
 npx hardhat verify --list-networks
 ```
 

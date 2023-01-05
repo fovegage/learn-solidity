@@ -17,6 +17,8 @@ uniswap: 进行币的兑换
 ### erc1155
 
 - https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1155.md
+- https://www.jianshu.com/p/82103d269111
+- 可变性太强 即可以是同质性又可以是非同质性
 
 ```solidity
 pragma solidity ^0.5.9;
@@ -103,6 +105,7 @@ interface ERC1155 /* is ERC165 */ {
         @param _id     ID of the token
         @return        The _owner's balance of the token type requested
      */
+    // 查询某个地址某类NFT的数量
     function balanceOf(address _owner, uint256 _id) external view returns (uint256);
 
     /**
@@ -111,6 +114,7 @@ interface ERC1155 /* is ERC165 */ {
         @param _ids    ID of the tokens
         @return        The _owner's balance of the token types requested (i.e. balance for each (owner, id) pair)
      */
+    // 批量查询
     function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);
 
     /**

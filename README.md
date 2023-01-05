@@ -38,6 +38,10 @@ ether ---> finney ---> gwei ---> wei
 
 # 标准文档
 https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
+https://eips.ethereum.org/EIPS/eip-1155
+
+# 自建区块链 客户端
+https://goethereumbook.org/zh/account-balance/
 ```
 
 ## 网站
