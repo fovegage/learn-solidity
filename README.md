@@ -33,6 +33,27 @@ eth: https://goerli.etherscan.io
 cfx: https://www.confluxscan.io
 matic: https://polygonscan.com
 
+# 挖矿
+可以是指 A对B的交易、A进行铸造（外部地址向合约地址）这些行为均需要矿工进行确认, 矿工计算满足前n位hash为0,
+计算成功后发起广播，这笔手续费会打给矿工
+Gas Fee（Tx Fee） = Gas Limit(限制) 和 Gas Price(价格) 相乘得到
+Gas Limit由支付者控制  Gas Price
+Gas Price燃料价格：动态计算  单位gwei
+
+## gas
+在EVM里面，每个运算、操作、存储都需要gas的，比如：
+ADD：加法操作 3gas
+MUL：乘法操作 5gas
+SUB：减法操作 3gas
+DIV：除法操作 5gas
+JUMP：跳转操作 8gas
+MSTORE：内容存储操作 3gas
+MLOAD：内容读取操作 3gas
+CREATE：创建合约 32000gas (if tx.to == null)
+SSTORE：存入存储区 20000gas （从0设为非0值）
+SHA3：Keccak256哈希 30gas + 6gas * (size of input in words) + mem_expansion_cost
+交易基本费用：21000gas （比如Transfer就要这么多）
+
 # 单位 单位1000
 ether ---> finney ---> gwei ---> wei
 
@@ -42,6 +63,9 @@ https://eips.ethereum.org/EIPS/eip-1155
 
 # 自建区块链 客户端
 https://goethereumbook.org/zh/account-balance/
+
+# 学习文档
+https://learnblockchain.cn/books/geth/part1/gas.html
 ```
 
 ## 网站
@@ -52,6 +76,8 @@ ntf交易：https://opensea.io/collection
 预言机：https://docs.chain.link/vrf/v2/introduction
 合约标准库：https://docs.openzeppelin.com/contracts/4.x/tokens
 nftsacn: https://www.nftscan.com/
+gas: https://ethgasstation.info/
+综合搜索网站：https://blockscan.com/
 ```
 
 ## 标准
@@ -100,6 +126,27 @@ https://zhuanlan.zhihu.com/p/455735178
 ```
 
 [](doc/img.png)
+
+## erc理解
+
+```
+1. 外部地址：每个账户拥有的代币，可以在 scan页面看到
+2. 合约地址：记录交易记录、交易事件、代币情况
+3. 可以看到erc20展示的是数量(发行量固定，不会贬值，要么泡沫要么升值，即同质性)，erc721展示的是代币ID(每个代币的价值都不同，即非同质性)
+
+# 代币
+https://goerli.etherscan.io/token/0x326c977e6efc84e512bb9c30f76e30c160ed06fb?a=0x17A48395806D4e130e1b131672C610add12c1680
+https://goerli.etherscan.io/token/0x1eacb7ad779d3e558824059533f32a14316b801f?a=0x17A48395806D4e130e1b131672C610add12c1680
+# 合约 
+https://goerli.etherscan.io/address/0x1eACb7AD779d3e558824059533F32A14316B801F
+https://goerli.etherscan.io/address/0x326c977e6efc84e512bb9c30f76e30c160ed06fb  chainlink
+# 账户  展示交易记录 下属代币 交易gas 交易tx
+https://goerli.etherscan.io/address/0x17a48395806d4e130e1b131672c610add12c1680
+```
+
+![](doc/img_2.png)
+![](doc/img_1.png)
+![](doc/img_3.png)
 
 ## 扩展
 
