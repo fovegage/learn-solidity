@@ -33,5 +33,18 @@ https://www.sunswap.com/?lang=zh-CN#/home
 ### 开发文档
 
 ```
+https://cn.developers.tron.network/v4.0/docs/trc20%E5%90%88%E7%BA%A6%E4%BA%A4%E4%BA%92%E4%BB%A5usdt%E4%B8%BA%E4%BE%8B
 https://cn.developers.tron.network/docs/trc20-protocol-interface
+```
+
+### 学习资料
+
+```
+https://www.bilibili.com/video/BV1QA411K7NU/?vd_source=44c52730b7b5612e95a86d9473811e95
+```
+
+### 开源收款
+
+```
+https://doc.tronapi.com/api/#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C
 ```
